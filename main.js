@@ -5,9 +5,12 @@ const mobileMenu = document.querySelector('.mobile-menu');
 const burgerMenu = document.querySelector('.menu');
 
 const carritoIcon = document.querySelector('.navbar-shopping-cart');
-const aside = document.querySelector('.product-detail');
+const aside = document.querySelector('.product-detail-carrito');
 
 const cardsConteiner = document.querySelector('.cards-container');
+
+const productDetails = document.querySelector('.product-detail');
+const productDetailCloseIcon = document.querySelector('.product-detail-close');
 
 menuMail.addEventListener('click', changeDesktopMenu);
 
@@ -15,20 +18,26 @@ burgerMenu.addEventListener('click', changeMobileMenu);
 
 carritoIcon.addEventListener('click', viewCarrito);
 
+productDetailCloseIcon.addEventListener('click', closeProductDetail);
+
 function changeDesktopMenu() {
     desktopMenu.classList.toggle('inactive');
     aside.classList.add('inactive');
+    productDetails.classList.add('inactive');
 };
 
 function changeMobileMenu() {
     mobileMenu.classList.toggle('inactive');
     aside.classList.add('inactive');
+    productDetails.classList.add('inactive');
+    desktopMenu.classList.add('inactive');
 };
 
 function viewCarrito(){
     aside.classList.toggle('inactive');
     mobileMenu.classList.add('inactive');
     desktopMenu.classList.add('inactive');
+    productDetails.classList.add('inactive');
 };
 
 const productList = [];
@@ -56,6 +65,7 @@ function renderProducts (arr) {
 
         const productImage = document.createElement('img');
         productImage.setAttribute('src', product.image);
+        productImage.addEventListener('click', viewDetails);
 
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
@@ -80,11 +90,21 @@ function renderProducts (arr) {
         productInfo.appendChild(productInfoDiv);
         productInfo.appendChild(productInfoFigure);
 
-        productCard.appendChild(productInfo);
         productCard.appendChild(productImage);
+        productCard.appendChild(productInfo);
+       
 
         cardsConteiner.appendChild(productCard);
     }
 };
 
+function viewDetails() {
+    productDetails.classList.toggle('inactive');
+    aside.classList.add('inactive');
+    mobileMenu.classList.add('inactive');
+    desktopMenu.classList.add('inactive');
+}
+function closeProductDetail() {
+    productDetails.classList.add('inactive');
+}
 renderProducts(productList);
